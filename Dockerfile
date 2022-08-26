@@ -29,29 +29,3 @@ EXPOSE 80
 #CMD does not run on the image but when a container is started based on the image
 #CMD command
 CMD ["node", "server.js"]
-
-#a Docker container is isolated from local environment so it has its own internal network
-
-
-#On the terminal then run:
-#to create image based on a dockerfile:
-#$docker build .
-
-#to show all the images
-#$docker images -a 
-
-#$docker run <IMAGE ID>
-
-#to see all the running ps
-#docker ps
-
-#to see all the running and exited
-#$docker ps-a
-
-#docker stop <CONTAINER NAME>
-
-# -p to publish under which port sould be accessible (CORRECT WAY TO RUN)
-#docker run -p <IMAGEID>
-
-#to not use layered base arch
-#docker build  --no-cache .
