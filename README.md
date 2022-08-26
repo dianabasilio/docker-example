@@ -1,3 +1,6 @@
+# Docker
+
+## Dockerfile
 This allows to buil up the image from another image
 To add a operating system in there
 from image node ...
@@ -32,7 +35,7 @@ CMD command
 
 a Docker container is isolated from local environment so it has its own internal network
 
-
+## Commands
 On the terminal then run:
 to create image based on a dockerfile:
 ` $docker build . `
