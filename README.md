@@ -40,7 +40,7 @@ to create image based on a dockerfile:
 to show all the images
 ` $docker images -a ` 
 
-` $docker run <IMAG `E ID>
+` $docker run <IMAGE ID> `
 
 to see all the running ps
 docker ps
