@@ -21,7 +21,7 @@ RUN npm install
 #RUN node server.js -> (run project) this woul de incorrect because all this set up instructions are for the image
 #but the image is just template of the code
 
-#set the port
+#set the port just for DOCUMENTATION (could be removed) but for better practice add it.
 EXPOSE 80
 
 #The image is not run, the container is what is run
@@ -31,3 +31,21 @@ EXPOSE 80
 CMD ["node", "server.js"]
 
 #a Docker container is isolated from local environment so it has its own internal network
+
+
+#On the terminal then run:
+#to create image based on a dockerfile:
+#$docker build .
+
+#to show all the images
+#$docker images -a 
+
+#$docker run <IMAGE ID>
+
+#to see all the running ps
+#docker ps
+
+#to see all the running and exited
+#$docker ps-a
+
+#docker stop <CONTAINER NAME>
