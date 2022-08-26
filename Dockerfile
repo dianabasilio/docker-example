@@ -8,15 +8,15 @@ FROM node
 #everything will be relative to this working directory
 WORKDIR /app
 
-#To tell docker wich files should go into the image
-# The first dot means that all files where docker file is will be copied into the image (Host file system)
-# ./ (image container file system), this is the path inside of the image where those files should be store on dockeer
-#/app to not guess but to know
-COPY . /app
+#This copy package json to ensure npm install only runs when package.json is changed
+COPY package.json /app
 
 #In this project we need to run npm install
 #to run a command on the image
 RUN npm install
+
+#To tell docker wich files should go into the image
+COPY . /app
 
 #RUN node server.js -> (run project) this woul de incorrect because all this set up instructions are for the image
 #but the image is just template of the code
