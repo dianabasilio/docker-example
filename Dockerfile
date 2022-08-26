@@ -49,3 +49,9 @@ CMD ["node", "server.js"]
 #$docker ps-a
 
 #docker stop <CONTAINER NAME>
+
+# -p to publish under which port sould be accessible (CORRECT WAY TO RUN)
+#docker run -p <IMAGEID>
+
+#to not use layered base arch
+#docker build  --no-cache .
