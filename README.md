@@ -55,3 +55,23 @@ to see all the running and exited
 
 to not use layered base arch
 ` docker build  --no-cache . `
+
+## Questions
+
+### What are "Images" (when working with Docker)?
+-Images are "blueprints" for containers wich then are running instances with read and write access.
+
+### What does "Isolation" mean in the context of containers?
+- Containers are separated from each other and have no shared data or state by default.
+
+### What's a "Container"?
+- A container is an isolated unit of software wich is based on an image. A running instance of that image.
+- 
+### What are "Layers" in the context of images?
+- Every instruction in an image creates a cacheable layer -layers help with image re-building and sharing.
+
+### What does this command do: docker build .? 
+- It builds an image
+
+### What does this command do: docker run node?
+- It creates and runs a container based on the "node" image.
