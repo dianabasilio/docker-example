@@ -35,23 +35,23 @@ a Docker container is isolated from local environment so it has its own internal
 
 On the terminal then run:
 to create image based on a dockerfile:
-$docker build .
+` $docker build . `
 
 to show all the images
-$docker images -a 
+` $docker images -a ` 
 
-$docker run <IMAGE ID>
+` $docker run <IMAG `E ID>
 
 to see all the running ps
 docker ps
 
 to see all the running and exited
-$docker ps-a
+` $docker ps-a ` 
 
-docker stop <CONTAINER NAME>
+` docker stop <CONTAINER NAME> `
 
  -p to publish under which port sould be accessible (CORRECT WAY TO RUN)
-docker run -p <IMAGEID>
+` docker run -p <IMAGEID> `
 
 to not use layered base arch
-docker build  --no-cache .
+` docker build  --no-cache . `
