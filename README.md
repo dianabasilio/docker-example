@@ -80,8 +80,20 @@ To fetch the log on a container (To see all the console logs)
 To keep on listening the logs (attached container).
 ` $docker logs -f <CONTIANER NAME>`
 
-To interact like use inputs in terminal
+To interact like use inputs in terminal.
 ` $docker run -i <imageid>`
+
+To remove containers (they must be stopped), we can remove several at the same time.
+` $docker rm <CONTIANER NAME> <CONTIANER NAME> <CONTIANER NAME>`
+
+To list all images.
+` $docker images`
+
+To remove images (that ARE NOT BEING USED by a container (running or stopped)), we can remove several at the same time.
+` $docker rmi <IMAGEID> <IMAGEID> <IMAGEID>`
+
+To remove ALL images that are not being used.
+` $docker image prune`
 
 ## Questions
 
