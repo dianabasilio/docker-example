@@ -95,6 +95,9 @@ To remove images (that ARE NOT BEING USED by a container (running or stopped)), 
 To remove ALL images that are not being used.
 ` $docker image prune`
 
+To automatically remove the container when it exits. flag --rm
+` $docker run -p 8000:80 -d --rm <IMAGEID> `
+
 ## Questions
 
 ### What are "Images" (when working with Docker)?
