@@ -101,6 +101,15 @@ To automatically remove the container when it exits. flag --rm
 To inspect image. To know all about that image, when was it created, the configurations like ports or variables, docker version, operating system.
 ` $docker image inspect IMAGEID> `
 
+To copy a file into a container.
+` $docker cp <foldername>/test.txt <container name>:/<container path(you choose)>`
+
+Or to copy everything inside a folder.
+` $docker cp <foldername>/. <container name>:/<container path(you choose)>`
+
+Or to copy from cotainer to local.
+` $docker cp <container name>:/<container path(you choose)> <foldername>`
+
 ## Questions
 
 ### What are "Images" (when working with Docker)?
