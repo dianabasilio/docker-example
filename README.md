@@ -98,6 +98,9 @@ To remove ALL images that are not being used.
 To automatically remove the container when it exits. flag --rm
 ` $docker run -p 8000:80 -d --rm <IMAGEID> `
 
+To inspect image. To know all about that image, when was it created, the configurations like ports or variables, docker version, operating system.
+` $docker image inspect IMAGEID> `
+
 ## Questions
 
 ### What are "Images" (when working with Docker)?
