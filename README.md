@@ -46,18 +46,38 @@ to show all the images
 ` $docker run <IMAGE ID> `
 
 to see all the running ps
-docker ps
+` $docker ps ` 
 
 to see all the running and exited
 ` $docker ps-a ` 
 
-` docker stop <CONTAINER NAME> `
+To stop container
+` $docker stop <CONTAINER NAME> `
 
- -p to publish under which port sould be accessible (CORRECT WAY TO RUN)
-` docker run -p <IMAGEID> `
+ -p to publish under which port sould be accessible (CORRECT WAY TO RUN) (docker run creates a new container) attached container.
+` $docker run -p 8000:80 <IMAGEID> `
+To run it on detached mode:
+` $docker run -p 8000:80 -d <IMAGEID> `
+To attach it again:
+` $docker attach <CONTAINER NAME> `
 
 to not use layered base arch
-` docker build  --no-cache . `
+` $docker build  --no-cache . `
+
+to see all docker commands
+` $docker --help `
+` $docker ps --help `
+
+To restart a container (not create a new one)
+` $docker ps -a ` (to see all container)
+` $docker start <CONTAINER NAME>` (to RESTART that container) detached container.
+` $docker start -a <CONTAINER NAME>` (to RESTART that container) attached container.
+
+To fetch the log on a container (To see all the console logs)
+` $docker logs <CONTIANER NAME>`
+
+To keep on listening the logs (attached container).
+` $docker logs -f <CONTIANER NAME>`
 
 ## Questions
 
