@@ -72,12 +72,16 @@ To restart a container (not create a new one)
 ` $docker ps -a ` (to see all container)
 ` $docker start <CONTAINER NAME>` (to RESTART that container) detached container.
 ` $docker start -a <CONTAINER NAME>` (to RESTART that container) attached container.
+` $docker start -a -i <CONTAINER NAME>` (to RESTART that container) attached container and interact with it (inputs).
 
 To fetch the log on a container (To see all the console logs)
 ` $docker logs <CONTIANER NAME>`
 
 To keep on listening the logs (attached container).
 ` $docker logs -f <CONTIANER NAME>`
+
+To interact like use inputs in terminal
+` $docker run -i <imageid>`
 
 ## Questions
 
