@@ -105,8 +105,10 @@ To remove ALL images that are not being used.
 To remove ALL images that are not being used even if they have a tag.
 `$docker image prune -a`
 
-To automatically remove the container when it exits. flag --rm
+To automatically remove the container when it exits (stop). flag --rm, flag -d (dettached)
 ` $docker run -p 8000:80 -d --rm <IMAGEID> `
+To do the same but with a name
+` $docker run -p 8000:80 -d --name <appname> --rm <IMAGEID> `
 
 To inspect image. To know all about that image, when was it created, the configurations like ports or variables, docker version, operating system.
 ` $docker image inspect <IMAGEID> `
