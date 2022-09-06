@@ -132,6 +132,8 @@ name: appname
 `docker run -p 3004:80 -d --rm --name <NAME> <NAME>:<TAG>`
 
 
+To rename an image (clone)
+`docker tag <NAME>:<TAG> <NEW-NAME>:<NEW-TAG>`
 
 ## Questions
 
@@ -178,3 +180,17 @@ Create a dockerhub account, create a repository (image)
 
 ![image](https://user-images.githubusercontent.com/81311646/188522888-2a032eee-5d22-4155-a7d7-7c3e5b2d721f.png)
 Here dianabasilio/react-app is the image name
+
+You need to stablish a conection with this command to login:
+`docker login`
+
+You need to use the same image name that is in the repository.
+`docker push <image-name>`
+
+You call also pull this image even if you are logged out.
+`docker pull <image-name>`
+
+To run this pulled image just use any of these commands, this works even if you haven't pulled the image just check you do not have it locally so you have
+the latest version.
+`docker run <image-name>`
+`docker run -p 8000:3000 <image-name>`
