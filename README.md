@@ -194,3 +194,30 @@ To run this pulled image just use any of these commands, this works even if you 
 the latest version.
 `docker run <image-name>`
 `docker run -p 8000:3000 <image-name>`
+
+## Volumes
+
+Volumes are folders on your host machine hard drive wich are mounted ("made available", mapped) into containers.
+A volume persists if a container shuts down. If a container (re-)starts and mounts a volume, any data inside of that volume is avaible in the container.
+A container can write data into a colume and read data from it.
+
+### we have 2 types of volumes
+
+#### Anonymous
+This only exists if the container exists.
+
+example:
+VOLUME ["/app/feedback"]
+
+#### Named Volumes
+Volumes will survive even if container stopped.
+
+To list all volumes
+`docker volume ls`
+
+flag -v <name>:<path>
+`docker run -p 3007:80 -d --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes`
+
+### to delete volumes
+
+`docker volume rm <VOL_NAME>`
