@@ -173,3 +173,8 @@ There are a lot of providers for private registry, you can also use this.
 It has a free plan. Official Docker Image Registry.
 `docker push <IMAGENAME>`
 `docker pull <IMAGENAME>`
+
+Create a dockerhub account, create a repository (image)
+
+![image](https://user-images.githubusercontent.com/81311646/188522888-2a032eee-5d22-4155-a7d7-7c3e5b2d721f.png)
+Here dianabasilio/react-app is the image name
