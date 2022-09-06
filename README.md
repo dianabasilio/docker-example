@@ -158,3 +158,18 @@ name: appname
 ### What does this command do: docker run node?
 
 - It creates and runs a container based on the "node" image.
+
+
+## Share docker
+
+When we share just the dockerfile, we need to also share the code. 
+
+So we need to share it via dockerhub or Private registry. 
+
+### Private Registry
+There are a lot of providers for private registry, you can also use this.
+
+### dockerhub
+It has a free plan. Official Docker Image Registry.
+`docker push <IMAGENAME>`
+`docker pull <IMAGENAME>`
