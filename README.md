@@ -199,18 +199,40 @@ the latest version.
 
 Volumes are folders on your host machine hard drive wich are mounted ("made available", mapped) into containers.
 A volume persists if a container shuts down. If a container (re-)starts and mounts a volume, any data inside of that volume is avaible in the container.
-A container can write data into a colume and read data from it.
+A container can write data into a volume and read data from it.
+
+### What is a Volume?
+- A folder/file inside of a Docker container wich is connected to some folder outside the container.
+- Volumes are managed by Docker, you don´t necessarily know where the host folder (wich is mapped to a container path) is.
+
+To create volumes
+`docker volume create <volumeName>`
+
+To inspect volumes
+`docker volume inspect <volumeName>`
+
+To remove volume (that is not in use by a container) you need to stop that container. ALL DATA IS LOST
+`docker volume rm <volumeName>`
 
 ### we have 2 types of volumes
 
 #### Anonymous
 This only exists if the container exists.
+Created specifically for a single container.
+Survives container shutdown/restart unless --rm is used.
+Can not be shared across containers.
+- Useful when you can use them to prioritize container-internal paths higher than external paths.
 
+- They can be created directly on dockerfile
 example:
 VOLUME ["/app/feedback"]
 
+- or they can be created with run -v /app/blabla
+
 #### Named Volumes
-Volumes will survive even if container stopped.
+Volumes will survive even if container removed.
+- Created in general, it is not tied to any specific container.
+- Can be shared across containers.
 
 To list all volumes
 `docker volume ls`
@@ -221,3 +243,37 @@ flag -v <name>:<path>
 ### to delete volumes
 
 `docker volume rm <VOL_NAME>`
+
+## Bind Mount (uses absolute path)
+
+Are similar to volumes, but volumes are managed by docker and we do not know where the host is, with bind mount you know, you define a folder/path on your host machine.
+It is great for persistent, editable (by you) data.
+
+With bind mount we can change something locally and it updates the container with to need to create another container.
+
+- They are not tied to specific container.
+- They survive to rm container.
+- Can be shared across containers.
+- Can be re-used for same containers.
+- Useful when you want to provide "live data" to the container (no rebuilding needed).
+- They are write read by default. To ensure container only reads write :ro at the end
+
+Add the complete route to your project, (double -v)
+
+`docker run -p 3007:80 --name >name> -v feedback:/app/feedback -v "<completeroute>:/app/feedback"  feedback-node:volumes`
+
+- Path shortcuts
+macOS / Linux: -v $(pwd):/app
+
+Windows: -v "%cd%":/app
+
+Sometimes node module is not there
+`docker run -p 3007:80 --name >name> -v feedback:/app/feedback -v "<completeroute>:/app/feedback" -v /app/node_modules feedback-node:volumes`
+
+We can add to avoid some errors on node js apps with bind mount:
+
+`"devDependencies": {"nodemon":"2.0.4"}`
+
+### What is a Bind Mount?
+- A path on your host machine, wich you know and specified, that is mapped to some container-internal path.
+
