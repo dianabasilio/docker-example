@@ -2,7 +2,10 @@
 #To add a operating system in there
 #from image node ...
 #This image exists on docker hub
-FROM node
+FROM node:14
+
+#SETTING A DEFAULT PORT (this is dynamic)
+ARG DEFAULT_PORT = 80
 
 #for setting the working directory of de docker container
 #everything will be relative to this working directory
@@ -19,7 +22,7 @@ RUN npm install
 COPY . .
 
 #Using environment variables
-ENV PORT 80
+ENV PORT $DEFAULT_PORT
 
 #RUN node server.js -> (run project) this woul de incorrect because all this set up instructions are for the image
 #but the image is just template of the code

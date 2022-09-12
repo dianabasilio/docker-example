@@ -288,7 +288,7 @@ We can add to avoid some errors on node js apps with bind mount:
 
 - Available inside of Dockerfile & in application code.
 - Set via ENV in Dockerfile or via --env on docker run
-- for example declaring variable port on dockerfile: 
+- for example declaring variable port on dockerfile:
 `ENV PORT 80`
 
 - You can access port variable while running container and change its value.
@@ -298,3 +298,9 @@ We can add to avoid some errors on node js apps with bind mount:
 - You can also do this with the .env file: 
 - On .env file write: PORT = 8000
 `docker run -p 3007:8000 --name <name> --env-file ./.env`
+
+### Build Arguments
+You can access Build arguments with --build-arg
+
+On dockerfile: ARG <variable-name> = 80
+`docker build -t <NAME>:<TAG> --build-arg VARIABLE_NAME = 8000 .`
