@@ -16,13 +16,17 @@ COPY package.json /app
 RUN npm install
 
 #To tell docker wich files should go into the image
-COPY . /app
+COPY . .
+
+#Using environment variables
+ENV PORT 80
 
 #RUN node server.js -> (run project) this woul de incorrect because all this set up instructions are for the image
 #but the image is just template of the code
 
-#set the port just for DOCUMENTATION (could be removed) but for better practice add it.
-EXPOSE 80
+#set the port just for DOCUMENTATION (could be removed) but for better practice add it. 
+#here port is 80
+EXPOSE $PORT
 
 #The image is not run, the container is what is run
 

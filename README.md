@@ -268,7 +268,7 @@ macOS / Linux: -v $(pwd):/app
 Windows: -v "%cd%":/app
 
 Sometimes node module is not there
-`docker run -p 3007:80 --name >name> -v feedback:/app/feedback -v "<completeroute>:/app/feedback" -v /app/node_modules feedback-node:volumes`
+`docker run -p 3007:80 --name <name> -v feedback:/app/feedback -v "<completeroute>:/app/feedback" -v /app/node_modules feedback-node:volumes`
 
 We can add to avoid some errors on node js apps with bind mount:
 
@@ -277,3 +277,24 @@ We can add to avoid some errors on node js apps with bind mount:
 ### What is a Bind Mount?
 - A path on your host machine, wich you know and specified, that is mapped to some container-internal path.
 
+## ARGuments & ENVironment variables
+
+### ARG
+
+- Available inside of dockerfile, NOT accessible in CMD or any application code.
+- Set on image build (docker build) via --build-arg.
+
+### ENV 
+
+- Available inside of Dockerfile & in application code.
+- Set via ENV in Dockerfile or via --env on docker run
+- for example declaring variable port on dockerfile: 
+`ENV PORT 80`
+
+- You can access port variable while running container and change its value.
+- Changing port variable to 8000 (change algo de the publish port):
+`docker run -p 3007:8000 --name <name> --env PORT=8000`
+
+- You can also do this with the .env file: 
+- On .env file write: PORT = 8000
+`docker run -p 3007:8000 --name <name> --env-file ./.env`
