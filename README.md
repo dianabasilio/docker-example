@@ -304,3 +304,15 @@ You can access Build arguments with --build-arg
 
 On dockerfile: ARG <variable-name> = 80
 `docker build -t <NAME>:<TAG> --build-arg VARIABLE_NAME = 8000 .`
+
+## Summary data and working with volumes.
+
+Containers can read + write data.
+- **Volumes** can help with data storage.
+- **Bind Mounts** can help with direct container interaction.
+- **Containers** can read + write data, but written data is lost if the container is removed.
+- **Valumes** are folders on the host machine managed by docker. Wich are mounted into the container.
+- **Named volumes** survive container removal and can therefore be used to store persistent data.
+- **Anonymous volumes** are attached to a container. They can be used to save temporary data inside the container.
+- **Bind Mounts** are folders on the host machine wich are specified by the user and mounted into containers like named volumes.
+- **Buil ARGuments and runtime ENVironment variables** can be used to make images and containers more **dynamic/Configurable**.
