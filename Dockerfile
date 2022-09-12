@@ -4,9 +4,6 @@
 #This image exists on docker hub
 FROM node:14
 
-#SETTING A DEFAULT PORT (this is dynamic)
-ARG DEFAULT_PORT = 80
-
 #for setting the working directory of de docker container
 #everything will be relative to this working directory
 WORKDIR /app
@@ -20,6 +17,9 @@ RUN npm install
 
 #To tell docker wich files should go into the image
 COPY . .
+
+#SETTING A DEFAULT PORT (this is dynamic)
+ARG DEFAULT_PORT = 80
 
 #Using environment variables
 ENV PORT $DEFAULT_PORT
