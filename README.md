@@ -303,7 +303,7 @@ We can add to avoid some errors on node js apps with bind mount:
 You can access Build arguments with --build-arg
 
 On dockerfile: ARG <variable-name> = 80
-`docker build -t <NAME>:<TAG> --build-arg VARIABLE_NAME = 8000 .`
+`docker build -t <NAME>:<TAG> --build-arg <VARIABLE_NAME> = <value> .`
 
 ## Summary data and working with volumes.
 
@@ -316,3 +316,39 @@ Containers can read + write data.
 - **Anonymous volumes** are attached to a container. They can be used to save temporary data inside the container.
 - **Bind Mounts** are folders on the host machine wich are specified by the user and mounted into containers like named volumes.
 - **Buil ARGuments and runtime ENVironment variables** can be used to make images and containers more **dynamic/Configurable**.
+
+## Networking: (cross-) Container communication
+
+### 3 types of communication:
+- Container to www
+- Container to localhost
+- Container to container
+
+## Container to www
+This communication has no problem, we do not need anything else.
+
+## Container to localhost
+You need to change `localhost` to `host.docker.internal`
+
+## Container to Container
+
+First inspect the other container:
+`docker container inspect <container-name>`
+
+Copy the IPAddress
+You need to change `localhost` to `IPAddress`
+
+### Docker Networks (Elegant Container to Container)
+
+Within a Docker network, all containers can communicate with each other and IPs are automatically resolved.
+
+`docker run --network my_network ...`
+
+1. Stop and remove the containers you want to connect.
+2. To create a new docker network: `docker network create <network-name>`.
+3. To inspect networks created: `docker network ls`.
+4. With that you can run `docker run --name <name-1> --network <network-name> <image>`
+5. NOTE: we did not publish the ports on the last command
+6. You need to change `localhost` to `<container-name>`.
+7. Do the same last steps with the other container you wanna connect to this one.
+
