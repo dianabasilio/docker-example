@@ -352,3 +352,6 @@ Within a Docker network, all containers can communicate with each other and IPs 
 6. You need to change `localhost` to `<container-name>`.
 7. Do the same last steps with the other container you wanna connect to this one.
 
+## Check this multicontainer repo
+
+#### https://github.com/dianabasilio/multi-container-docker
