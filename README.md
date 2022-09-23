@@ -354,4 +354,33 @@ Within a Docker network, all containers can communicate with each other and IPs 
 
 ## Check this multicontainer repo
 
-#### https://github.com/dianabasilio/multi-container-docker
+### https://github.com/dianabasilio/multi-container-docker
+
+## DOCKER COMPOSE
+
+Used to automate multi-Container Setups.
+One configuration file + Orchestration commands (build, start, stop).
+
+- Docker Compose does not replace Dockerfiles for custom Images.
+- Docker Compose does NOT replace Images or Containers.
+- Docker Compose is NOT suited for managing multiple containers on different hosts (machines).
+- Here services are containers. -> define port, volumes, environment, networks.
+- You need to create a yml file
+
+By default you do NOT need to specify --rm flag or -d flag on docker compose, networks is not needed
+
+Create docker-compose.yml
+
+Run `docker image prune -a`
+Run `docker container prune`
+Run `docker-compose up` (attached) or `docker-compose up -d` (dettached)
+To delete and stop all containers `docker-compose down` 
+If you want to also delete the volumes run `docker-compose down -v`
+To see more options `docker-compose --help`
+With --build flag you force that docker re build the image (if any changes) `docker-compose up --build` 
+To only build image and NOT run containers with compose just `docker-compose build`
+
+### summary docker compose
+
+- With docker-compose you can define volumes and add them to containers.
+- With docker-compose, a default network for all composed containers is created.
