@@ -384,3 +384,5 @@ To only build image and NOT run containers with compose just `docker-compose bui
 
 - With docker-compose you can define volumes and add them to containers.
 - With docker-compose, a default network for all composed containers is created.
+- docker-compose and docker commands can work together.
+- Docker compose mainly solves annoying repetition of (long) commands.
