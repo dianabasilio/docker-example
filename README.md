@@ -233,6 +233,7 @@ VOLUME ["/app/feedback"]
 Volumes will survive even if container removed.
 - Created in general, it is not tied to any specific container.
 - Can be shared across containers.
+- REMEMBER to add volumes on dockercompose at the end.
 
 To list all volumes
 `docker volume ls`
@@ -386,3 +387,41 @@ To only build image and NOT run containers with compose just `docker-compose bui
 - With docker-compose, a default network for all composed containers is created.
 - docker-compose and docker commands can work together.
 - Docker compose mainly solves annoying repetition of (long) commands.
+
+## other docker commands
+
+- run `docker exec <command>` to run extra commands that are not inside the dockerfile.
+
+
+## Section 9: Deploying Dcoker Containers.
+
+### To take in count
+
+- Bind Mounts shouldn´t be used in Production.
+- Containerized apps might need a build step (like React apps).
+- Multi-Container projects might need to be split (or should be split) across multiple host/remote machines.
+- Trade-offs between control and responsability might be worth it.
+
+### Hosting providers (Cloud services)
+
+- AWS- Amazon Web Services.
+- Azure- Microsoft Azure.
+- Google Cloud.
+- There are more....
+
+### AWS
+
+AWS-EC2: It is a service that allows you to spin up and manage your own computers/remote machines on the cloud.
+
+#### STEPS to use EC2
+
+1. Create and launch EC2 instance, VPC and security group.
+2. Configure security group to expose all required ports to WWW.
+3. Connect to instance (SSH) (to connect to the remote machine), install Docker and run container.
+
+### In Production
+
+- A container should really work standalone, you should NOT have source code on your remote machine.
+- Instead of using bind mounts, we use COPY.
+- Remember that bind mount are declared with -v flag (on run command) or in docker-compose. NOT dockerfile.
+- 
