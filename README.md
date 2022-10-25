@@ -392,6 +392,27 @@ To only build image and NOT run containers with compose just `docker-compose bui
 
 - run `docker exec <command>` to run extra commands that are not inside the dockerfile.
 
+## Building a first utility container
+
+- workdir /app (dockerfile)
+- docker build -t node-util .
+### using bind mount, and here you will run npm init
+- docker run -it -v C:\Users\dbasilio\OneDrive-deacero.com\Documentos\basic\learning-docker\nodejs-app-starting-setup\nodejs-app-starting-setup:/app node-util npm init
+### using bind mount, and here you will run npm install
+- docker run -it -v C:\Users\dbasilio\OneDrive-deacero.com\Documentos\basic\learning-docker\nodejs-app-starting-setup\nodejs-app-starting-setup:/app node-util npm install
+
+### to restrict the commands that you can run use ENTRYPOINT:
+
+- With this now you can pass command on run and they will be appended, this can not be done with cmd.
+- ENTRYPOINT ["npm"] (Dockerfile) (build image again)
+### with that now you do not need the word npm on the command
+- docker run -it -v C:\Users\dbasilio\OneDrive-deacero.com\Documentos\basic\learning-docker\nodejs-app-starting-setup\nodejs-app-starting-setup:/app node-util init (this will add package json on the project locally because of bind mount)
+
+### now with DOCKER COMPOSE
+- docker-compose exec (to run commands on already running containers)
+- docker-compose run npm run init (to run depending on the service name)
+- docker-compose run --rm npm run init (so that container would be removed when end)
+
 
 ## Section 9: Deploying Dcoker Containers.
 
