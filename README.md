@@ -445,4 +445,22 @@ AWS-EC2: It is a service that allows you to spin up and manage your own computer
 - A container should really work standalone, you should NOT have source code on your remote machine.
 - Instead of using bind mounts, we use COPY.
 - Remember that bind mount are declared with -v flag (on run command) or in docker-compose. NOT dockerfile.
-- 
+
+# DOCKER WITH PHP LARAVEL
+
+## Adding a Nginx (web server container)
+
+You should read the docs
+
+### Add docker compose yml
+
+version: "3.8"
+services:
+
+## Adding php container:
+
+### https://hub.docker.com/_/php   How to install more PHP extensions
+
+RUN docker-php-ext-install pdo pdo_mysql
+
+:delegated  (optimización) se procesa en baches (loltes) improve performance.
