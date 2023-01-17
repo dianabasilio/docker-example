@@ -15,8 +15,8 @@ everything will be relative to this working directory
 ### WORKDIR /app
 
 To tell docker wich files should go into the image
- The first dot means that all files where docker file is will be copied into the image (Host file system)
- ./ (image container file system), this is the path inside of the image where those files should be store on dockeer
+The first dot means that all files where docker file is will be copied into the image (Host file system)
+./ (image container file system), this is the path inside of the image where those files should be store on dockeer
 /app to not guess but to know
 
 ### COPY . /app
@@ -46,38 +46,38 @@ a Docker container is isolated from local environment so it has its own internal
 
 On the terminal then run:
 to create image based on a dockerfile:
-` $docker build . `
+`$docker build .`
 
 to show all the images
-` $docker images -a `
+`$docker images -a`
 
-` $docker run <IMAGE ID> `
+`$docker run <IMAGE ID>`
 
 to see all the running ps
-` $docker ps `
+`$docker ps`
 
 to see all the running and exited
-` $docker ps-a `
+`$docker ps-a`
 
 To stop container
-` $docker stop <CONTAINER NAME> `
+`$docker stop <CONTAINER NAME>`
 
- -p to publish under which port sould be accessible (CORRECT WAY TO RUN) (docker run creates a new container) attached container.
-` $docker run -p 8000:80 <IMAGEID> `
+-p to publish under which port sould be accessible (CORRECT WAY TO RUN) (docker run creates a new container) attached container.
+`$docker run -p 8000:80 <IMAGEID>`
 To run it on detached mode:
-` $docker run -p 8000:80 -d <IMAGEID> `
+`$docker run -p 8000:80 -d <IMAGEID>`
 To attach it again:
-` $docker attach <CONTAINER NAME> `
+`$docker attach <CONTAINER NAME>`
 
 to not use layered base arch
-` $docker build  --no-cache . `
+`$docker build --no-cache .`
 
 to see all docker commands
-` $docker --help `
-` $docker ps --help `
+`$docker --help`
+`$docker ps --help`
 
 To restart a container (not create a new one)
-` $docker ps -a ` (to see all container)
+`$docker ps -a` (to see all container)
 `$docker start <CONTAINER NAME>` (to RESTART that container) detached container.
 `$docker start -a <CONTAINER NAME>` (to RESTART that container) attached container.
 `$docker start -a -i <CONTAINER NAME>` (to RESTART that container) attached container and interact with it (inputs).
@@ -106,12 +106,12 @@ To remove ALL images that are not being used even if they have a tag.
 `$docker image prune -a`
 
 To automatically remove the container when it exits (stop). flag --rm, flag -d (dettached)
-` $docker run -p 8000:80 -d --rm <IMAGEID> `
+`$docker run -p 8000:80 -d --rm <IMAGEID>`
 To do the same but with a name
-` $docker run -p 8000:80 -d --name <appname> --rm <IMAGEID> `
+`$docker run -p 8000:80 -d --name <appname> --rm <IMAGEID>`
 
 To inspect image. To know all about that image, when was it created, the configurations like ports or variables, docker version, operating system.
-` $docker image inspect <IMAGEID> `
+`$docker image inspect <IMAGEID>`
 
 To copy a file into a container.
 `$docker cp <foldername>/test.txt <container name>:/<container path(you choose)>`
@@ -130,7 +130,6 @@ tag:version
 name: appname
 `docker build -t <NAME>:<TAG> .`
 `docker run -p 3004:80 -d --rm --name <NAME> <NAME>:<TAG>`
-
 
 To rename an image (clone)
 `docker tag <NAME>:<TAG> <NEW-NAME>:<NEW-TAG>`
@@ -161,17 +160,18 @@ To rename an image (clone)
 
 - It creates and runs a container based on the "node" image.
 
-
 ## Share docker
 
-When we share just the dockerfile, we need to also share the code. 
+When we share just the dockerfile, we need to also share the code.
 
-So we need to share it via dockerhub or Private registry. 
+So we need to share it via dockerhub or Private registry.
 
 ### Private Registry
+
 There are a lot of providers for private registry, you can also use this.
 
 ### dockerhub
+
 It has a free plan. Official Docker Image Registry.
 `docker push <IMAGENAME>`
 `docker pull <IMAGENAME>`
@@ -202,6 +202,7 @@ A volume persists if a container shuts down. If a container (re-)starts and moun
 A container can write data into a volume and read data from it.
 
 ### What is a Volume?
+
 - A folder/file inside of a Docker container wich is connected to some folder outside the container.
 - Volumes are managed by Docker, you don´t necessarily know where the host folder (wich is mapped to a container path) is.
 
@@ -217,20 +218,24 @@ To remove volume (that is not in use by a container) you need to stop that conta
 ### we have 2 types of volumes
 
 #### Anonymous
+
 This only exists if the container exists.
 Created specifically for a single container.
 Survives container shutdown/restart unless --rm is used.
 Can not be shared across containers.
+
 - Useful when you can use them to prioritize container-internal paths higher than external paths.
 
 - They can be created directly on dockerfile
-example:
-VOLUME ["/app/feedback"]
+  example:
+  VOLUME ["/app/feedback"]
 
 - or they can be created with run -v /app/blabla
 
 #### Named Volumes
+
 Volumes will survive even if container removed.
+
 - Created in general, it is not tied to any specific container.
 - Can be shared across containers.
 - REMEMBER to add volumes on dockercompose at the end.
@@ -261,10 +266,10 @@ With bind mount we can change something locally and it updates the container wit
 
 Add the complete route to your project, (double -v)
 
-`docker run -p 3007:80 --name >name> -v feedback:/app/feedback -v "<completeroute>:/app/feedback"  feedback-node:volumes`
+`docker run -p 3007:80 --name >name> -v feedback:/app/feedback -v "<completeroute>:/app/feedback" feedback-node:volumes`
 
 - Path shortcuts
-macOS / Linux: -v $(pwd):/app
+  macOS / Linux: -v $(pwd):/app
 
 Windows: -v "%cd%":/app
 
@@ -276,6 +281,7 @@ We can add to avoid some errors on node js apps with bind mount:
 `"devDependencies": {"nodemon":"2.0.4"}`
 
 ### What is a Bind Mount?
+
 - A path on your host machine, wich you know and specified, that is mapped to some container-internal path.
 
 ## ARGuments & ENVironment variables
@@ -285,22 +291,23 @@ We can add to avoid some errors on node js apps with bind mount:
 - Available inside of dockerfile, NOT accessible in CMD or any application code.
 - Set on image build (docker build) via --build-arg.
 
-### ENV 
+### ENV
 
 - Available inside of Dockerfile & in application code.
 - Set via ENV in Dockerfile or via --env on docker run
 - for example declaring variable port on dockerfile:
-`ENV PORT 80`
+  `ENV PORT 80`
 
 - You can access port variable while running container and change its value.
 - Changing port variable to 8000 (change algo de the publish port):
-`docker run -p 3007:8000 --name <name> --env PORT=8000`
+  `docker run -p 3007:8000 --name <name> --env PORT=8000`
 
-- You can also do this with the .env file: 
+- You can also do this with the .env file:
 - On .env file write: PORT = 8000
-`docker run -p 3007:8000 --name <name> --env-file ./.env`
+  `docker run -p 3007:8000 --name <name> --env-file ./.env`
 
 ### Build Arguments
+
 You can access Build arguments with --build-arg
 
 On dockerfile: ARG <variable-name> = 80
@@ -309,6 +316,7 @@ On dockerfile: ARG <variable-name> = 80
 ## Summary data and working with volumes.
 
 Containers can read + write data.
+
 - **Volumes** can help with data storage.
 - **Bind Mounts** can help with direct container interaction.
 - **Containers** can read + write data, but written data is lost if the container is removed.
@@ -321,14 +329,17 @@ Containers can read + write data.
 ## Networking: (cross-) Container communication
 
 ### 3 types of communication:
+
 - Container to www
 - Container to localhost
 - Container to container
 
 ## Container to www
+
 This communication has no problem, we do not need anything else.
 
 ## Container to localhost
+
 You need to change `localhost` to `host.docker.internal`
 
 ## Container to Container
@@ -375,10 +386,10 @@ Create docker-compose.yml
 Run `docker image prune -a`
 Run `docker container prune`
 Run `docker-compose up` (attached) or `docker-compose up -d` (dettached)
-To delete and stop all containers `docker-compose down` 
+To delete and stop all containers `docker-compose down`
 If you want to also delete the volumes run `docker-compose down -v`
 To see more options `docker-compose --help`
-With --build flag you force that docker re build the image (if any changes) `docker-compose up --build` 
+With --build flag you force that docker re build the image (if any changes) `docker-compose up --build`
 To only build image and NOT run containers with compose just `docker-compose build`
 
 ### summary docker compose
@@ -396,23 +407,29 @@ To only build image and NOT run containers with compose just `docker-compose bui
 
 - workdir /app (dockerfile)
 - docker build -t node-util .
+
 ### using bind mount, and here you will run npm init
+
 - docker run -it -v C:\Users\dbasilio\OneDrive-deacero.com\Documentos\basic\learning-docker\nodejs-app-starting-setup\nodejs-app-starting-setup:/app node-util npm init
+
 ### using bind mount, and here you will run npm install
+
 - docker run -it -v C:\Users\dbasilio\OneDrive-deacero.com\Documentos\basic\learning-docker\nodejs-app-starting-setup\nodejs-app-starting-setup:/app node-util npm install
 
 ### to restrict the commands that you can run use ENTRYPOINT:
 
 - With this now you can pass command on run and they will be appended, this can not be done with cmd.
 - ENTRYPOINT ["npm"] (Dockerfile) (build image again)
+
 ### with that now you do not need the word npm on the command
+
 - docker run -it -v C:\Users\dbasilio\OneDrive-deacero.com\Documentos\basic\learning-docker\nodejs-app-starting-setup\nodejs-app-starting-setup:/app node-util init (this will add package json on the project locally because of bind mount)
 
 ### now with DOCKER COMPOSE
+
 - docker-compose exec (to run commands on already running containers)
 - docker-compose run npm run init (to run depending on the service name)
 - docker-compose run --rm npm run init (so that container would be removed when end)
-
 
 ## Section 9: Deploying Dcoker Containers.
 
@@ -430,6 +447,25 @@ To only build image and NOT run containers with compose just `docker-compose bui
 - Google Cloud.
 - There are more....
 
+# DOCKER WITH PHP LARAVEL
+
+## Adding a Nginx (web server container)
+
+You should read the docs
+
+### Add docker compose yml
+
+version: "3.8"
+services:
+
+## Adding php container:
+
+### https://hub.docker.com/_/php How to install more PHP extensions
+
+RUN docker-php-ext-install pdo pdo_mysql
+
+:delegated (optimización) se procesa en baches (loltes) improve performance.
+
 ### AWS
 
 AWS-EC2: It is a service that allows you to spin up and manage your own computers/remote machines on the cloud.
@@ -446,21 +482,4 @@ AWS-EC2: It is a service that allows you to spin up and manage your own computer
 - Instead of using bind mounts, we use COPY.
 - Remember that bind mount are declared with -v flag (on run command) or in docker-compose. NOT dockerfile.
 
-# DOCKER WITH PHP LARAVEL
-
-## Adding a Nginx (web server container)
-
-You should read the docs
-
-### Add docker compose yml
-
-version: "3.8"
-services:
-
-## Adding php container:
-
-### https://hub.docker.com/_/php   How to install more PHP extensions
-
-RUN docker-php-ext-install pdo pdo_mysql
-
-:delegated  (optimización) se procesa en baches (loltes) improve performance.
+## Kubernetes
