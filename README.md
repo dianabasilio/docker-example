@@ -564,3 +564,10 @@ AWS-EC2: It is a service that allows you to spin up and manage your own computer
 - Pods: Pods hold the actual running app containers + their required resources (volumes)
 - Container: Normal docker containers.
 - Services: Are logical set (group) of Pods with a unique, por-and-container- independent ip address.
+
+## Kubernetes questions
+
+- Kubernetes helps with: deployment of (more complex) containerized applications.
+- Cluster: a network of machines wich are split up in worker and master nodes.
+- Worker node: a machine which hosts running pods/containers.
+- Pods: a "shell" for container -responsible for running and containing that container(+any other required config and volumes)
