@@ -483,3 +483,84 @@ AWS-EC2: It is a service that allows you to spin up and manage your own computer
 - Remember that bind mount are declared with -v flag (on run command) or in docker-compose. NOT dockerfile.
 
 ## Kubernetes
+
+- Is an open-source system for automating deployment, scaling, and management of containerized applications.
+
+### before kubernetes we had a problem
+
+- We used to create everuthing manually, we created the instance ec2, and deploy push/pull manually, it is hard to maintain, error-prone and annoying.
+- Containers might crash/go down and need to be replaced.
+- Aws help us to check container health and automatic re-deployment.
+- We might need more container instances upon traffic spikes.
+- AWS help us Autoscaling.
+- Incoming traffic should be distributed equally.
+- AWS give us load balancer that give us a domain, and split equally incoming traffic.
+
+### Using a specific cloud service lock us into that service
+
+- Of course you might be fine with sticking to one provider though!
+- You need to learn about the specifics, services and config options of another provider if yu want to switch.
+
+### Kubernetes
+
+- An open-source system (and de-facto standard) for orchestrating container deploymnets.
+- It is like a docker-compose for multiple machines.
+- It help us with: automatic deployment, scaling and load balancing, management.
+- It could be used on any provider.
+- Provides an standardized way of describing the to-be and to-be managed resoucers of th kubernetes cluster. Cloud-provider-specific settings can be added.
+
+#### What kuberneter is NOT
+
+- It is not a cloud service provider.
+- It is not a service by a cloud service provider.
+- It is not just a software you run on some mahcine.
+- It is not an alternative to docker.
+- It is not a paid service.
+
+#### What kuberneter is
+
+- It is an open source project that can be used with any cloud provider.
+- It can be used with any provider.
+- It is a collection of concepts and tools.
+- It works with docker containers.
+- It is a free open-source project.
+
+### Pod, proxy and worker node on kubernetes.
+
+- The pod has a container inside. and a pod is inside a worker node (your virtual machines, instance).
+- Proxy is also inside a worker node to control the network traffic.
+- You will need probably different worker nodes.
+- Multiple pods can be created and removed to scale your app.
+- Tha master node controls and interacts the node to control them it has the control plane. Controls your deployment. It send the instructions to the cloud provider API.
+
+### What you need to do/ setup
+
+- Create the cluster and the node instances (worker+Master nodes)
+- Setup API server, kubelet and other kuberneter services / software on nodes.
+- Create other (cloud) provider resources that might be needed (load balancer filesytems).
+
+### What kuberneted will do
+
+- Create your objects (pods) and manage them.
+- Monitor pods and re-create them, scale pods.
+- Kubernetes utilizes the provided cloud resources to apply your configuration/goals.
+
+### Worker node
+
+- Think of it as one computer /machine/virtual instance.
+- Is managed by the master node.
+- Inside worker nodes are pods: hosts one or more application containers and their resources.
+- Pod are created and managed by kubernetes. Inside pods there are containers and volumes.
+- Docker is also inside worker node.
+- Kubelet is also inside worker node: communication between master and worker node.
+- Kube-proxy: Managed node and pod communication.
+
+### Core components Kubernetes
+
+- Cluster: a set of node machines wich are running the containerized application ( workernodes) or control other Nodes (master node).
+- Nodes: Physicar or virtual machine with a certain hardware capacity which hosts one or multiple pods and communicates with the cluster.
+- Master node: Cluster control plane, managing the pods across worker nodes.
+- Worker Node: Hosts pods, running app containers (+resources)
+- Pods: Pods hold the actual running app containers + their required resources (volumes)
+- Container: Normal docker containers.
+- Services: Are logical set (group) of Pods with a unique, por-and-container- independent ip address.
