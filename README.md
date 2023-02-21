@@ -571,3 +571,42 @@ AWS-EC2: It is a service that allows you to spin up and manage your own computer
 - Cluster: a network of machines wich are split up in worker and master nodes.
 - Worker node: a machine which hosts running pods/containers.
 - Pods: a "shell" for container -responsible for running and containing that container(+any other required config and volumes)
+
+## Kubernetes works with objects:
+
+- Pods: the smallest "unit" kubernetes interacts with. They run 1 or multiple containers, typically just one."one container per Pod".Pods contain shared resources (volumes) for all Pods containers. a Pos has a cluster-internal IP by default.Containers inside Pods communicate with each other via localhost. Pods are designed to be ephemeral: kubernetes will start, stop and replace them as needed.
+- Deployment: The "deployment" object is important. Controls (multiple) Pods.You set a desired state, kubernetes then changes the actual state.Define wich pods and containers to run and the number of instances.Deployments can be paused, deleted and rolled back.Deployments can be scaled dynamically (and automatically)
+- services
+- volumes
+
+## kubernetes commands
+
+- To see everything is up and running:
+- $ minikube status
+
+- To send an image to that cluster: to send instructions to the kubernetes cluster (kubectl)
+- $ kubectl help
+
+- To see what you can create (objects)
+- $ kubectl create
+
+### imperative way to create objects
+
+- To create a deployment object and automatically send it to the kubernetes cluster
+- $ kubectl create deployment
+
+- To see all "" objects
+- $ kubectl get deployments
+- $ kubectl get pods
+
+- To delete objects
+- $ kubectl delete my-app-name deployment
+
+### To deploy with kubernetes
+
+- Create a local image with docker.
+- Push that image into dockerhub
+- $ kubectl create deployment my-app-name --image=remote-image-name
+- $ kubectl get deployments, you should see: 1/1 ready.
+- $ kubectl get pods, you should see: 1/1 ready and status running.
+- $ minikube dashboard, it should open the dashboard on other page.
