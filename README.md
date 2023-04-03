@@ -582,31 +582,235 @@ AWS-EC2: It is a service that allows you to spin up and manage your own computer
 ## kubernetes commands
 
 - To see everything is up and running:
-- $ minikube status
+- `$ minikube status`
 
 - To send an image to that cluster: to send instructions to the kubernetes cluster (kubectl)
-- $ kubectl help
+- `$ kubectl help`
 
 - To see what you can create (objects)
-- $ kubectl create
+- `$ kubectl create`
 
 ### imperative way to create objects
 
 - To create a deployment object and automatically send it to the kubernetes cluster
-- $ kubectl create deployment
+- `$ kubectl create deployment`
 
 - To see all "" objects
-- $ kubectl get deployments
-- $ kubectl get pods
+- `$ kubectl get deployments`
+- `$ kubectl get pods`
 
 - To delete objects
-- $ kubectl delete my-app-name deployment
+- `$ kubectl delete my-app-name deployment`
 
 ### To deploy with kubernetes
 
 - Create a local image with docker.
 - Push that image into dockerhub
-- $ kubectl create deployment my-app-name --image=remote-image-name
+- `$ kubectl create deployment my-app-name --image=remote-image-name`
 - $ kubectl get deployments, you should see: 1/1 ready.
 - $ kubectl get pods, you should see: 1/1 ready and status running.
 - $ minikube dashboard, it should open the dashboard on other page.
+
+### To have multiple pods (replicas)
+
+- This is used when you need to have more pods in case you application terminates.
+- `$ kubectl scale deployment/first-app --replicas=3`
+- To see all the pods you should see 3 pods:
+- $ kublect get pods
+
+### updating deployments
+
+- This is used for when you update your code.
+- First build a new image with a new tag :2:
+- $ docker build -t academind/first-app:2 .
+  -$docker push ...
+- Now update deployment, you equal the last image to the new image.
+- $kublect set image deployment/first-app kub-first-app=academind/first-app:2.
+
+- $kublect rollout undo deployment/first-app
+- $ kublect rollout status deployment/first-app
+  To go to a specific version
+- $kublect rollout undo deployment/first-app --to-revision=1
+
+## Imperative vs declarative kubernetes usages.
+
+### Imperative
+
+- Individual commands are executed to trigger certain kubernetes actions.
+- $kublect create deployment
+- Comparable to using docker run ...
+
+### Declarative
+
+- $ kublect apply -f config.yaml
+- a config file is defined and applied to change the desired state.
+- Comparable to using docker compose.
+
+#### each object needs a metadata
+
+- After config the deployment.yaml
+- $ kubectl apply -f=deployment.yaml
+
+### livenessProbe
+
+- Where you define how kubernetes should verified if the container is up and running.
+
+## Summary module 12
+
+### What kubernetes will do
+
+- Create your objects (e.g. Pods) and manage them.
+- Monitor Pods and re-crete them, scale Pods etc.
+- Kubernetes utilizes the provided (cloud) resources to apply your configuration/goals.
+
+### What you need to do / Setup
+
+- Create the cluster and the Node instances (Worker + Master Nodes).
+- Setup API Server, kubelet and other Kubernetes services / software and Nodes.
+- Create other (cloud) provider resources that might be needed (load balancer, Filesystems).
+
+### Kubectl
+
+- A tool for sending instructions to the cluster.
+
+### Cluster
+
+- Contains the master node and the worker node
+
+### Kubernetes objects
+
+- Kubernetes works with Objects.
+- Objects are: Pods, Deployments, Services, Volumes ..
+- Objects can be created in two ways:
+
+- Imperatively or Declaratively.
+
+### Imperatively
+
+- `$ kubectl create deployment first-app --image=academicind/kub-first-app`
+
+- To create a service like a load balancer:
+- `$ kubectl expose deploymeny first-app --port=8080 --type=LoadBalancer`
+
+### Declaratively
+
+- here you write your deployment and service yamls and apply them by using this command:
+- `$ kubectl apply -f=deployment.yaml -f=service.yaml`
+- you can delete resources by
+- `$ kubectl delete -f=deployment.yaml`
+
+### You can user deployment.yaml and service.yaml on a same file.
+
+- "Nodes" are your machines/virtual instances, inside cluster.
+- Worker Nodes tun the containers of your application.
+- "Master Node" controls your deployment (all worker nodes), inside cluster.
+
+## Module 13 managing data and volumes with kubernetes
+
+### State
+
+- State is data created and used by your application wich must not be lost.
+- Could be User-generated data, user accounts, (stored in a database).
+- Intermediate results derived by the app.
+
+- Kubernetes needs to be configured to add Volumes to our containers.
+
+### Volumes
+
+- Kubernetes can mount Volumes into containers.
+- Volume lifetime depends ont he pod lifetime.
+- Volumes are removed when Pods are destroyed.
+- Volumes on kubernetes are not as easy to maintain as in Docker.
+- the type of volume depends here now in the type of driver.
+
+#### First volume "emptyDir"
+
+- empty dir is a type of volume, creates a new emptydirectery and keeps it alive when pod is alive, when a pod is remove this directery is removed, and when it creates another pod this is created again.
+- on deployment.yaml on the spec of the container (pod), we will add:
+- volumes:
+- -name: story-blabla
+- emptyDir: {}
+
+- Add volumeMounts: mountPath:
+
+- This is a great basic volume, but what it we have 2 different replicas? it FAILS. the traffic got redirected to the other pod.
+
+#### second volume hostPath driver
+
+- Multiple pods can have the same hostPath for volumes. hostPath will share a path with each pod you want.
+- This only works locally.
+
+### understanding the CSI volume type.
+
+- The other types are very specific, like aws.
+- CSI, was built to be used for any cloud, anyone can use this interface, if you want to use amazon elastic file system you can use this with nfs type, but might take an extra work.
+- Thanks to thi CSI feature will be super easy to use, is very flexible type. We do not really need this for locally, but for cloud we need CSI to store out data.
+
+### CSI, hostPath and emptyDir, volumes are destroyed when a pod is removed.
+
+- With minikube we only have 1 worker node, but when you move from local to a real deployement for example aws, you will have multiple nodes and hostpath also won´t help you. Multiple pods might not share same data.
+
+- Pod and Node-independent Volumes are sometimes required.
+  so we have....
+
+## Persistent volumes
+
+- They will be "ouside" the nodes.
+- They are independent from the node.
+- To create a persistent volume, you can create a yaml host-pv.yaml
+- kind: PersistentVolume
+- Add the same path as development.yaml
+- You need to specify the storage: 4Gi
+- accessMode: (there are 3 possible access, ReadWriteOnce : same node (hostpath need this), ReadOnlyMany: multiple pods can use this volume, ReadWriteMany: )
+
+Create host-pvc.yaml
+
+- On deployment.yaml
+- persistentVolumeClaim:
+- claimName: host-pvc
+
+## storage class on kubectl
+
+- $kubectl get sc
+- There is a storage class included, it is a concept to give admins control about volume configure, how exactly that storage should be provison, provide important information to volume config, you just need to make sure you are using this. on host-pv.yaml
+
+- to use that simple add storageClassName: standard on host-pv.yaml and host-pvc.yaml
+
+- `$ kublect apply -f=host-pv.yaml`
+- `$ kublect apply -f=host-pvc.yaml`
+- `$ kublect apply -f=deployment.yaml`
+
+# To get all the persistent volumes
+
+- `$ kubectl get pv`
+
+# To get all the claims, you need claim to counter part to persistent valume, how much space it needs, sets as a volume claim, you specify the volume and the host pv
+
+- `$ kubectl get pvc`
+
+## Main difference pv (persistent volume) and pvc (persistent volume claim) is that the persistent volume I think is the data perse (path) and the persistent volume claim is the configuration that is use to pass it to the deployment
+
+### Normal volumes vs persistent volumes
+
+- Both will allow you to persist data and data should not be lost when a container is restart, deleted or removed.
+- The "normal" volumes are independent from the container but not independent from the pod, they are attached to the pod and their life cycle, if the pod is reacreated it will depend on the volume type, for example the empty dir part will then start again empty if the pod is reacreated vs host type or other cloud provider types will NOT lose data.
+- The BIG PROBLEM with "normal" volumes is that it is repetitive and hard to administrate on a global level. This might be annoying when you have multiple pods. Persistent volumes solve that problem.
+- In the "normal" volumes we define the config on the pod vs persistent volumes that is defined "outside".
+
+#### On persistent volumes
+
+- Volume is a standalone cluster resource (not attached to the pod).
+- Created standalone, claimed via PVC.
+- Can be defined just once and be used multiple times.
+
+## Env variables on kubernetes are on the deployment.yaml inside spec: as env: with a name: and a value:
+
+## OR
+
+## you can also set env variables on environment.yaml (so that this config can be used on multiple pods)
+
+- kind: ConfigMap
+- $ kublect apply -f=environment.yaml
+- $ kublect get configmap
+
+- On deployment you should add valuefrom: ConfigMapKeyRef: name:
