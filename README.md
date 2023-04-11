@@ -845,3 +845,42 @@ Create host-pvc.yaml
 - CoreDNS: DNS and service discovery
 
 - value: "auth-service.default"
+
+# Kubernetes deployment
+
+- Keep in ming that know it will not create a loadbalancer, or VM, you need to create the cluster.
+- Two ways: custom data center or Cloud Provider.
+
+- Having your own data center: install + configure everything on your own: machines, kubernetes software.
+- Cloud Provider: Intall + configure most things on your own.
+- EC2: to spin up your own instances, ssh, kubernetes.
+- Tool to have it easier: kops-kubernetes operation.
+- Use managed service: define cluster architecture.
+
+## AWS EKS vs AWS ECS
+
+### Elastic kubernetes services (EKS):
+
+- Service for kubernetes deployments.
+- No aws-specific syntax or philosophy.
+- Use standar kubernetes config.
+
+### Elastic Container service (ECS):
+
+- Knows nothing about kubernetes.
+- Use AWS-specific configuration and concepts.
+
+### EKS
+
+- EKS, configure cluster and select a role with permision.
+- Identity and access management: Configure roles, scroll there to eks, eks cluster (predefined role to give all permision)
+- Cloudformation: To easily create things with other services: create stack, to create a vpc network for you
+- Cluster public and private (inside cluster and outside)
+
+- In your user folder there is a .kube folder, config file wich connects kublect to minikube, but now we want it to talk to EKS with AWS CLI (allows you to run commands from inside your command line against your aws account).
+- Download key on security credentials
+- Cluster --> add node group (VMS)
+
+Kubernetes helps with multi-machine container orchestration.
+
+## CI/CD: Travis, githubactions aws codepipeline
