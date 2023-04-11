@@ -814,3 +814,34 @@ Create host-pvc.yaml
 - $ kublect get configmap
 
 - On deployment you should add valuefrom: ConfigMapKeyRef: name:
+
+## load balancer type
+
+- This creates an outside available IP address and it also automatically distributes incoming requests across all ports no matter on wich node they run and IP address is also independent, outside world facing view.
+
+- $ kublect apply -f=users-service.yaml
+
+- $ minikube service service-name
+- Grab the url that appears there and use it as localhost on postman
+
+### pod-internal comunication is via localhost (2 containers on the same pod)
+
+### Use ClusterIP instead of loadbalacer type so that it is not public
+
+- type: ClusterIP
+
+### Services give stable ip addresses, when communication POD to POD address should be the ip of the service $ kublect get services and use the ip that is shown istead of localhost.
+
+## Automatically generated environment variable kuberbenetes INSTEAD of localhost or manually env variable.
+
+- here there is no need to check the ip address.
+
+- project_name it is on metadata name
+
+- PROJECT_NAME_SERVICE_HOST
+
+## Cluster internal domain names
+
+- CoreDNS: DNS and service discovery
+
+- value: "auth-service.default"
